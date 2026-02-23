@@ -98,7 +98,7 @@ void loadStudents(vector<Student>& students) {
 }
 
 /* =========================
-   MENU
+   MENU FUNCTION
    ========================= */
 void showMenu() {
     cout << "\n===== DIGITAL ATTENDANCE SYSTEM =====\n";
@@ -142,6 +142,7 @@ int main() {
             if (students.empty()) {
                 cout << "No students registered yet.\n";
             } else {
+                cout << "\n--- Registered Students ---\n";
                 for (size_t i = 0; i < students.size(); i++) {
                     students[i].displayStudent(i + 1);
                 }
@@ -162,7 +163,7 @@ int main() {
             break;
         }
 
-        case 4:
+        case 4: {
             if (sessions.empty() || students.empty()) {
                 cout << "No sessions or students available.\n";
                 break;
@@ -179,6 +180,11 @@ int main() {
             int sessionChoice;
             cin >> sessionChoice;
             sessionChoice--;
+
+            if (sessionChoice < 0 || sessionChoice >= sessions.size()) {
+                cout << "Invalid session.\n";
+                break;
+            }
 
             for (size_t i = 0; i < students.size(); i++) {
                 cout << "Mark attendance for "
@@ -198,8 +204,9 @@ int main() {
 
             cout << "Attendance marked successfully.\n";
             break;
+        }
 
-        case 5:
+        case 5: {
             if (sessions.empty()) {
                 cout << "No sessions available.\n";
                 break;
@@ -213,11 +220,18 @@ int main() {
                      << sessions[i].date << endl;
             }
 
+            int sessionChoice;
             cin >> sessionChoice;
             sessionChoice--;
 
+            if (sessionChoice < 0 || sessionChoice >= sessions.size()) {
+                cout << "Invalid session.\n";
+                break;
+            }
+
             int present = 0, late = 0, absent = 0;
 
+            cout << "\n--- Attendance Report ---\n";
             for (size_t i = 0; i < students.size(); i++) {
                 cout << students[i].fullName << " - "
                      << sessions[sessionChoice].attendanceStatus[i] << endl;
@@ -235,6 +249,7 @@ int main() {
             cout << "Late: " << late << endl;
             cout << "Absent: " << absent << endl;
             break;
+        }
 
         case 6:
             saveStudents(students);
